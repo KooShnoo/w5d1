@@ -66,13 +66,23 @@ class ResizingIntSet
     @count = 0
   end
 
+  def length
+    # creating a length that gives us n 
+    @store.map(&:length).sum
+  end
+
   def insert(num)
+    if length > num_buckets
+      resize!
+    end
+      self[num] << nu
   end
 
   def remove(num)
   end
 
   def include?(num)
+    self[num].include?(num)
   end
 
   private
@@ -86,5 +96,6 @@ class ResizingIntSet
 
   def [](num)
     # optional but useful; return the bucket corresponding to `num`
+    @store[num % num_buckets]
   end
 end
